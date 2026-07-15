@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills - Flutter Developer Portfolio</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+  <!-- AOS Library for Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #FAF7F0, #F5F1E9);
+      color: #1A2E44;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, #02569B, #29B6F6);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar.scrolled {
+      background: rgba(2, 86, 155, 0.9);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .nav-links a {
+      color: white;
+      margin-left: 1.5rem;
+      padding: 0.5rem 1rem;
+      background-color: rgba(2, 86, 155, 0.2);
+      border-radius: 0.25rem;
+      transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    }
+    .nav-links a:hover {
+      color: #ffd700;
+      transform: scale(1.1);
+      background-color: #29B6F6;
+    }
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+    .nav-links.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      width: 100%;
+      background: #02569B;
+      padding: 1rem;
+    }
+    .nav-links.active a {
+      margin: 0.5rem 0;
+      background-color: rgba(2, 86, 155, 0.2);
+    }
+    .contact-info {
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .skills-section {
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .skills-section h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #1A2E44;
+      margin-bottom: 2rem;
+    }
+    .parallax-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://via.placeholder.com/1200x800/1A5F7A/FAF7F0?text=Teal+Brushstroke') no-repeat center;
+      background-size: cover;
+      opacity: 0.5;
+      z-index: -1;
+      background-attachment: fixed;
+    }
+    .skills-grid {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .skill-bar {
+      margin-bottom: 1.5rem;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .skill-bar i {
+      font-size: 2rem;
+      color: #29B6F6;
+    }
+    .skill-bar h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .progress-bar {
+      background: #4A5C6C;
+      border-radius: 8px;
+      height: 20px;
+      flex-grow: 1;
+      overflow: hidden;
+    }
+    .progress {
+      background: #29B6F6;
+      height: 100%;
+      width: 0;
+      transition: width 1.5s ease-in-out;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .skills-section h1 {
+        font-size: 2.5rem;
+      }
+      .parallax-bg {
+        background-attachment: scroll;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .progress, .nav-links a, .skills-section h1 {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <h1 class="text-white text-2xl font-bold"><i class="fa-brands fa-flutter"></i> Flutter Dev</h1>
+      <div class="hamburger"><i class="fas fa-bars"></i></div>
+      <div class="nav-links space-x-6">
+        <a href="index.html" class="text-lg">Home</a>
+        <a href="about.html" class="text-lg">About</a>
+        <a href="skills.html" class="text-lg">Skills</a>
+        <a href="projects.html" class="text-lg">Projects</a>
+        <a href="contact.html" class="text-lg">Contact</a>
+      </div>
+      <div class="contact-info">+01 (313) 345 678</div>
+    </div>
+  </nav>
+
+  <section class="skills-section">
+    <div class="parallax-bg"></div>
+    <h1 data-aos="fade-down">My Skills</h1>
+    <div class="skills-grid">
+      <div class="skill-bar" data-aos="fade-right">
+        <i class="fa-brands fa-flutter"></i>
+        <div>
+          <h3>Flutter & Dart</h3>
+          <div class="progress-bar">
+            <div class="progress" style="width: 90%;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-bar" data-aos="fade-right" data-aos-delay="100">
+        <i class="fas fa-paint-brush"></i>
+        <div>
+          <h3>UI/UX Design</h3>
+          <div class="progress-bar">
+            <div class="progress" style="width: 85%;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-bar" data-aos="fade-right" data-aos-delay="200">
+        <i class="fas fa-database"></i>
+        <div>
+          <h3>Backend Integration</h3>
+          <div class="progress-bar">
+            <div class="progress" style="width: 80%;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-bar" data-aos="fade-right" data-aos-delay="300">
+        <i class="fas fa-bug"></i>
+        <div>
+          <h3>Debugging & Optimization</h3>
+          <div class="progress-bar">
+            <div class="progress" style="width: 88%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-blue-900 text-white text-center py-6">
+    <p>Created with ❤️ using Flutter spirit</p>
+    <p class="mt-2"><i class="fas fa-envelope"></i> contact@flutterdev.com</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    window.addEventListener('load', () => {
+      const progresses = document.querySelectorAll('.progress');
+      progresses.forEach(progress => {
+        const width = progress.style.width;
+        progress.style.width = '0';
+        setTimeout(() => {
+          progress.style.width = width;
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>

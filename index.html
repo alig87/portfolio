@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmad Raza — Flutter & Mobile App Developer</title>
+<meta name="description" content="Ahmad Raza is a Flutter developer specializing in mobile applications — building production apps like CareCircle, Expense Calculator, and developer tooling.">
+
+<!-- Favicon -->
+<link rel="icon" href="data:,">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Skip link for accessibility -->
+<a href="#home" class="skip-link">Skip to content</a>
+
+<!-- Bubble canvas background -->
+<canvas id="bubble-canvas" aria-hidden="true"></canvas>
+
+<!-- ===================== NAVBAR ===================== -->
+<header class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#home" class="logo">Muhammad<span class="logo-dot">.</span>Ahmad<span class="logo-dot">.</span>Riaz</a>
+
+    <nav class="nav-links" id="nav-links">
+      <a href="#home" class="nav-link active" data-section="home">Home</a>
+      <a href="#about" class="nav-link" data-section="about">About</a>
+      <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+      <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+      <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+    </nav>
+
+    <a href="#contact" class="btn btn-primary btn-small nav-cta">Let's Talk</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="#home" class="mobile-link" data-section="home">Home</a>
+    <a href="#about" class="mobile-link" data-section="about">About</a>
+    <a href="#experience" class="mobile-link" data-section="experience">Experience</a>
+    <a href="#projects" class="mobile-link" data-section="projects">Projects</a>
+    <a href="#contact" class="mobile-link" data-section="contact">Contact</a>
+    <a href="#contact" class="btn btn-primary mobile-cta">Let's Talk</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="home">
+    <!-- decorative floating shapes -->
+    <div class="hero-deco" aria-hidden="true">
+      <span class="deco-dot dot-1"></span>
+      <span class="deco-dot dot-2"></span>
+      <span class="deco-dot dot-3"></span>
+      <span class="deco-ring ring-1"></span>
+      <span class="deco-ring ring-2"></span>
+      <svg class="deco-plus plus-1" viewBox="0 0 24 24"><path d="M11 0h2v24h-2z M0 11h24v2H0z"/></svg>
+      <svg class="deco-plus plus-2" viewBox="0 0 24 24"><path d="M11 0h2v24h-2z M0 11h24v2H0z"/></svg>
+    </div>
+
+    <div class="container hero-grid">
+      <div class="hero-inner">
+        <p class="eyebrow reveal" data-anim="1">Flutter Developer · Mobile Engineering</p>
+        <h1 class="hero-title reveal" data-anim="2">
+          Building mobile apps<br>
+          people <span class="text-accent">depend on</span>, <br>
+          one widget at a time.
+        </h1>
+        <p class="hero-desc reveal" data-anim="3">
+          I'm Ahmad Raza — a Flutter developer who builds production-grade Android
+          applications end to end. From parental-control systems with native Kotlin integrations
+          to clean-architecture developer tools, I ship apps that are reliable, fast, and built to last.
+        </p>
+        <div class="hero-actions reveal" data-anim="4">
+          <a href="#projects" class="btn btn-primary btn-ripple">
+            View Projects <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#contact" class="btn btn-outline btn-ripple">
+            Contact Me
+          </a>
+        </div>
+
+        <div class="hero-stats reveal" data-anim="5">
+          <div class="stat">
+            <span class="stat-num" data-count="3">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Production Apps Shipped</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num" data-count="13">0</span>
+            <span class="stat-label">Tools in Latest Toolkit App</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num" data-count="100">0</span><span class="stat-suffix">%</span>
+            <span class="stat-label">Clean Architecture Codebases</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" data-anim="3">
+        <div class="blob-wrap" id="hero-blob">
+          <div class="blob-tilt" id="blob-tilt">
+            <svg class="blob-shape" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <clipPath id="blobClip" clipPathUnits="objectBoundingBox">
+                  <path d="M0.5,0.02 C0.75,0.0 0.97,0.15 0.99,0.42 C1.01,0.65 0.92,0.85 0.72,0.95 C0.5,1.05 0.22,1.0 0.09,0.8 C-0.04,0.6 -0.02,0.32 0.12,0.16 C0.22,0.05 0.35,0.03 0.5,0.02 Z"/>
+                </clipPath>
+              </defs>
+              <image href="assets/ahmad.jpg" width="400" height="420"
+                     preserveAspectRatio="xMidYMid slice" clip-path="url(#blobClip)"/>
+              <path class="blob-outline" d="M0.5,0.02 C0.75,0.0 0.97,0.15 0.99,0.42 C1.01,0.65 0.92,0.85 0.72,0.95 C0.5,1.05 0.22,1.0 0.09,0.8 C-0.04,0.6 -0.02,0.32 0.12,0.16 C0.22,0.05 0.35,0.03 0.5,0.02 Z"
+                    transform="scale(400,420)" fill="none"/>
+            </svg>
+          </div>
+
+          <span class="blob-badge badge-1"><i class="fa-solid fa-mobile-screen-button"></i> Flutter</span>
+          <span class="blob-badge badge-2"><i class="fa-brands fa-android"></i> Kotlin</span>
+          <span class="blob-glow"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="section" id="about">
+    <div class="container">
+      <p class="section-eyebrow reveal">About</p>
+      <h2 class="section-title reveal scroll-zoom">The developer behind the code</h2>
+
+      <div class="about-grid">
+        <div class="about-card reveal reveal-scale">
+          <h3 class="card-heading"><span class="heading-bar"></span>Introduction</h3>
+          <p>
+            I'm a Flutter mobile developer focused on building complete, production-ready
+            applications — not just UI screens. My work spans the full stack of mobile
+            development: Flutter/Dart on the front end, native Android (Kotlin) for
+            system-level features like Accessibility Services and device-level locks, and
+            REST API integrations on the backend side.
+          </p>
+          <p>
+            I care about architecture as much as appearance. Every app I build follows a
+            structured pattern — MVVM, Clean Architecture, or BLoC — because code that's easy
+            to extend today is the same code that won't break in production six months from now.
+          </p>
+        </div>
+
+        <div class="about-side">
+          <div class="about-card small reveal reveal-scale">
+            <h3 class="card-heading"><span class="heading-bar"></span>Skills</h3>
+            <ul class="skill-list">
+              <li><i class="fa-solid fa-check"></i> Flutter &amp; Dart Development</li>
+              <li><i class="fa-solid fa-check"></i> MVVM &amp; Clean Architecture</li>
+              <li><i class="fa-solid fa-check"></i> BLoC / Cubit &amp; Provider</li>
+              <li><i class="fa-solid fa-check"></i> Native Android (Kotlin) Integration</li>
+              <li><i class="fa-solid fa-check"></i> REST API &amp; FCM Push Notifications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-grid about-grid-bottom">
+        <div class="about-card reveal reveal-scale">
+          <h3 class="card-heading"><span class="heading-bar"></span>Technologies</h3>
+          <div class="tech-tags">
+            <span class="tag">Flutter</span>
+            <span class="tag">Dart</span>
+            <span class="tag">Kotlin</span>
+            <span class="tag">Provider</span>
+            <span class="tag">BLoC / Cubit</span>
+            <span class="tag">GoRouter</span>
+            <span class="tag">GetIt</span>
+            <span class="tag">Hive</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">Firebase / FCM</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">fl_chart</span>
+            <span class="tag">Git &amp; GitHub</span>
+          </div>
+        </div>
+
+        <div class="about-card reveal reveal-scale">
+          <h3 class="card-heading"><span class="heading-bar"></span>Achievements</h3>
+          <ul class="achievement-list">
+            <li><i class="fa-solid fa-trophy"></i> Built CareCircle, a full parental-control system with parent &amp; child apps, geofencing, and native uninstall protection</li>
+            <li><i class="fa-solid fa-trophy"></i> Resolved Google Play Store policy rejections via compliant consent flows</li>
+            <li><i class="fa-solid fa-trophy"></i> Designed a 13-tool Developer Toolkit app using Clean Architecture from scratch</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCE ===================== -->
+  <section class="section section-alt" id="experience">
+    <div class="container">
+      <p class="section-eyebrow reveal">Experience</p>
+      <h2 class="section-title reveal scroll-zoom">Where the work happened</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item reveal reveal-left">
+          <div class="timeline-dot"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-card-head">
+              <h3>CareCircle</h3>
+              <span class="timeline-duration">Ongoing</span>
+            </div>
+            <p class="timeline-role">Flutter Mobile Developer</p>
+            <p class="timeline-desc">
+              Built and maintain a parental-control application with separate parent and
+              child device experiences. Implemented Safe Zones geofencing with full API
+              integration, FCM token lifecycle management, PIN-based uninstall protection
+              backed by a native Kotlin Accessibility Service, and device-pairing security
+              to prevent unauthorized re-pairing.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal reveal-right">
+          <div class="timeline-dot"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-card-head">
+              <h3>Developer Toolkit</h3>
+              <span class="timeline-duration">Recent</span>
+            </div>
+            <p class="timeline-role">Independent Flutter Project</p>
+            <p class="timeline-desc">
+              Designed and built a 13-tool developer utility app — including a JSON Formatter,
+              UUID Generator, JWT Decoder, and QR Code Generator — using BLoC/Cubit,
+              GoRouter, GetIt, Hive, and a feature-based Clean Architecture from the ground up.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal reveal-left">
+          <div class="timeline-dot"><i class="fa-solid fa-wallet"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-card-head">
+              <h3>Expense Calculator</h3>
+              <span class="timeline-duration">Completed</span>
+            </div>
+            <p class="timeline-role">Flutter Mobile Developer</p>
+            <p class="timeline-desc">
+              Built a complete expense-tracking app from scratch using MVVM Clean Architecture,
+              Provider for state management, local persistence with SQLite via sqflite, and
+              fl_chart for data visualization, finished with a dark fintech-inspired theme.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section class="section" id="projects">
+    <div class="container">
+      <p class="section-eyebrow reveal">Projects</p>
+      <h2 class="section-title reveal scroll-zoom">Things I've built</h2>
+
+      <div class="projects-grid">
+
+        <article class="project-card reveal reveal-scale">
+          <div class="card-flip" tabindex="0" role="button" aria-label="Flip CareCircle card for more details">
+            <div class="card-face card-face-front">
+              <div class="project-image">
+                <i class="fa-solid fa-people-roof"></i>
+              </div>
+              <div class="project-body">
+                <h3>CareCircle</h3>
+                <p>
+                  A full parental-control ecosystem with parent and child apps, geofencing-based
+                  Safe Zones, native uninstall protection, and secure device pairing — built on a
+                  Flutter + Kotlin hybrid architecture.
+                </p>
+                <div class="tech-tags small">
+                  <span class="tag">Flutter</span>
+                  <span class="tag">Kotlin</span>
+                  <span class="tag">MVVM</span>
+                  <span class="tag">FCM</span>
+                </div>
+                <span class="flip-hint"><i class="fa-solid fa-arrows-rotate"></i> Tap to flip</span>
+              </div>
+            </div>
+            <div class="card-face card-face-back">
+              <div class="project-body back-body">
+                <h3>Key Highlights</h3>
+                <ul class="highlight-list">
+                  <li><i class="fa-solid fa-tower-broadcast"></i> Real-time Pusher WebSocket events for instant device lock/unlock</li>
+                  <li><i class="fa-solid fa-map-location-dot"></i> Geofenced Safe Zones with live parent-side alerts</li>
+                  <li><i class="fa-solid fa-shield-halved"></i> Native uninstall protection with PIN verification</li>
+                  <li><i class="fa-solid fa-layer-group"></i> Flutter + Kotlin hybrid, clean MVVM architecture</li>
+                </ul>
+                <div class="project-actions">
+                  <a href="#" class="btn btn-outline btn-small"><i class="fa-brands fa-github"></i> GitHub</a>
+                  <a href="#" class="btn btn-primary btn-small">Live Demo</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal reveal-scale">
+          <div class="card-flip" tabindex="0" role="button" aria-label="Flip Developer Toolkit card for more details">
+            <div class="card-face card-face-front">
+              <div class="project-image">
+                <i class="fa-solid fa-toolbox"></i>
+              </div>
+              <div class="project-body">
+                <h3>Developer Toolkit</h3>
+                <p>
+                  A 13-in-1 developer utility app — JSON Formatter, UUID Generator, JWT Decoder,
+                  QR Code Generator, and more — built with BLoC/Cubit and a feature-based Clean
+                  Architecture.
+                </p>
+                <div class="tech-tags small">
+                  <span class="tag">Flutter</span>
+                  <span class="tag">BLoC</span>
+                  <span class="tag">Hive</span>
+                  <span class="tag">GoRouter</span>
+                </div>
+                <span class="flip-hint"><i class="fa-solid fa-arrows-rotate"></i> Tap to flip</span>
+              </div>
+            </div>
+            <div class="card-face card-face-back">
+              <div class="project-body back-body">
+                <h3>Key Highlights</h3>
+                <ul class="highlight-list">
+                  <li><i class="fa-solid fa-cubes"></i> 13 tools in one clean, offline-first app</li>
+                  <li><i class="fa-solid fa-lock"></i> 100% local — no login, no tracking, no ads</li>
+                  <li><i class="fa-solid fa-diagram-project"></i> Feature-based Clean Architecture with GetIt</li>
+                  <li><i class="fa-solid fa-palette"></i> Polished Material 3 interface</li>
+                </ul>
+                <div class="project-actions">
+                  <a href="#" class="btn btn-outline btn-small"><i class="fa-brands fa-github"></i> GitHub</a>
+                  <a href="#" class="btn btn-primary btn-small">Live Demo</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal reveal-scale">
+          <div class="card-flip" tabindex="0" role="button" aria-label="Flip Expense Calculator card for more details">
+            <div class="card-face card-face-front">
+              <div class="project-image">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <div class="project-body">
+                <h3>Expense Calculator</h3>
+                <p>
+                  A personal-finance tracker with a dark fintech theme, built on MVVM Clean
+                  Architecture with local SQLite persistence and interactive fl_chart visualizations.
+                </p>
+                <div class="tech-tags small">
+                  <span class="tag">Flutter</span>
+                  <span class="tag">Provider</span>
+                  <span class="tag">SQLite</span>
+                  <span class="tag">fl_chart</span>
+                </div>
+                <span class="flip-hint"><i class="fa-solid fa-arrows-rotate"></i> Tap to flip</span>
+              </div>
+            </div>
+            <div class="card-face card-face-back">
+              <div class="project-body back-body">
+                <h3>Key Highlights</h3>
+                <ul class="highlight-list">
+                  <li><i class="fa-solid fa-chart-pie"></i> Interactive fl_chart spending visualizations</li>
+                  <li><i class="fa-solid fa-database"></i> Fully offline SQLite persistence</li>
+                  <li><i class="fa-solid fa-moon"></i> Dark fintech-inspired theme</li>
+                  <li><i class="fa-solid fa-layer-group"></i> MVVM Clean Architecture with Provider</li>
+                </ul>
+                <div class="project-actions">
+                  <a href="#" class="btn btn-outline btn-small"><i class="fa-brands fa-github"></i> GitHub</a>
+                  <a href="#" class="btn btn-primary btn-small">Live Demo</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section section-alt" id="contact">
+    <div class="container">
+      <p class="section-eyebrow reveal">Contact</p>
+      <h2 class="section-title reveal scroll-zoom">Let's build something together</h2>
+      <p class="section-sub reveal">Have a project in mind or just want to talk Flutter? My inbox is open.</p>
+
+      <div class="contact-grid">
+
+        <form class="contact-form reveal" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" required>
+              <span class="error-msg" id="name-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+              <span class="error-msg" id="email-error"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+            <span class="error-msg" id="subject-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+            <span class="error-msg" id="message-error"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-ripple btn-full">
+            Send Message <i class="fa-solid fa-paper-plane"></i>
+          </button>
+
+          <p class="form-success" id="form-success" role="status">
+            <i class="fa-solid fa-circle-check"></i> Message sent successfully! I'll get back to you soon.
+          </p>
+        </form>
+
+        <div class="contact-side reveal">
+          <div class="contact-info-card">
+            <h3 class="card-heading"><span class="heading-bar"></span>Get in touch</h3>
+            <p>I'm currently open to freelance projects, collaborations, and full-time Flutter roles. Reach out through any channel below.</p>
+
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="GitHub">
+                <i class="fa-brands fa-github"></i> <span>GitHub</span>
+              </a>
+              <a href="#" class="social-link" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i> <span>LinkedIn</span>
+              </a>
+              <a href="mailto:ahmad@example.com" class="social-link" aria-label="Email">
+                <i class="fa-solid fa-envelope"></i> <span>Email</span>
+              </a>
+              <a href="https://wa.me/000000000000" class="social-link" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i> <span>WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>
+      © <span id="year"></span> Muhammad Ahmad Riaz.
+      Designed & Developed with Flutter • All Rights Reserved.
+    </p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/bubbles.js"></script>
+</body>
+</html>

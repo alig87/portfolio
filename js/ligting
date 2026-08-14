@@ -1,0 +1,175 @@
+/* ================================================================
+   LIGHTNING.JS
+   Draws random electric bolt flashes on an SVG overlay.
+   Bolts fire:
+     - Periodically at random intervals (ambient feel)
+     - On scroll momentum (faster scroll = more bolts)
+   Each bolt:
+     - Is a jagged polyline with a glow filter
+     - Fades out with a CSS opacity transition
+     - Has 1–2 branch forks for realism
+================================================================ */
+(function () {
+  const svg = document.getElementById('lightning-svg');
+  if (!svg) return;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  /* ---- SVG filter for glow ---- */
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  defs.innerHTML = `
+    <filter id="bolt-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="bolt-glow-strong" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  `;
+  svg.appendChild(defs);
+
+  /* ---- Build a jagged lightning path from (x1,y1) to (x2,y2) ---- */
+  function boltPoints(x1, y1, x2, y2, segments, spread) {
+    const pts = [{ x: x1, y: y1 }];
+    for (let i = 1; i < segments; i++) {
+      const t = i / segments;
+      const bx = x1 + (x2 - x1) * t;
+      const by = y1 + (y2 - y1) * t;
+      const perp = spread * (1 - Math.abs(t - 0.5) * 2); // taper at ends
+      pts.push({
+        x: bx + (Math.random() - 0.5) * perp * 2,
+        y: by + (Math.random() - 0.5) * perp * 0.5,
+      });
+    }
+    pts.push({ x: x2, y: y2 });
+    return pts;
+  }
+
+  function polylinePoints(pts) {
+    return pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  }
+
+  function randomBetween(a, b) { return a + Math.random() * (b - a); }
+
+  /* ---- Draw one bolt (optionally with a branch) ---- */
+  function fireBolt(options = {}) {
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    const scrollY = window.scrollY;
+
+    // Start from a random top edge point; end at a random mid/bottom point
+    const x1 = randomBetween(W * 0.05, W * 0.95);
+    const y1 = randomBetween(-20, H * 0.3) + scrollY; // above or near top of viewport
+    const x2 = x1 + randomBetween(-180, 180);
+    const y2 = y1 + randomBetween(120, Math.min(380, H * 0.55));
+
+    // Convert to viewport coords (SVG is fixed)
+    const vy1 = y1 - scrollY;
+    const vy2 = y2 - scrollY;
+
+    const segments = Math.floor(randomBetween(6, 12));
+    const spread   = randomBetween(20, 55);
+    const pts      = boltPoints(x1, vy1, x2, vy2, segments, spread);
+
+    const opacity  = randomBetween(0.45, 0.85);
+    const isStrong = Math.random() < 0.3;
+    const strokeW  = isStrong ? randomBetween(1.2, 2.2) : randomBetween(0.5, 1.2);
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('filter', isStrong ? 'url(#bolt-glow-strong)' : 'url(#bolt-glow)');
+    g.style.transition = 'opacity 0.08s ease-out';
+    g.style.opacity = opacity;
+
+    /* Main bolt */
+    const main = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    main.setAttribute('points', polylinePoints(pts));
+    main.setAttribute('fill', 'none');
+    main.setAttribute('stroke', '#16A34A');
+    main.setAttribute('stroke-width', strokeW);
+    main.setAttribute('stroke-linecap', 'round');
+    main.setAttribute('stroke-linejoin', 'round');
+    g.appendChild(main);
+
+    /* White core for hot-wire look */
+    const core = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    core.setAttribute('points', polylinePoints(pts));
+    core.setAttribute('fill', 'none');
+    core.setAttribute('stroke', 'rgba(255,255,255,0.55)');
+    core.setAttribute('stroke-width', strokeW * 0.35);
+    core.setAttribute('stroke-linecap', 'round');
+    g.appendChild(core);
+
+    /* Optional branch fork from ~midpoint */
+    if (Math.random() < 0.55) {
+      const branchStart = pts[Math.floor(pts.length * randomBetween(0.35, 0.6))];
+      const bx2 = branchStart.x + randomBetween(-90, 90);
+      const by2 = branchStart.y + randomBetween(50, 160);
+      const branchPts = boltPoints(
+        branchStart.x, branchStart.y, bx2, by2,
+        Math.floor(randomBetween(3, 7)),
+        spread * 0.55
+      );
+      const branch = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      branch.setAttribute('points', polylinePoints(branchPts));
+      branch.setAttribute('fill', 'none');
+      branch.setAttribute('stroke', '#16A34A');
+      branch.setAttribute('stroke-width', strokeW * 0.55);
+      branch.setAttribute('stroke-linecap', 'round');
+      branch.setAttribute('opacity', '0.7');
+      g.appendChild(branch);
+    }
+
+    svg.appendChild(g);
+
+    /* Flash in, hold briefly, fade out */
+    const holdMs   = randomBetween(40, 110);
+    const fadeMs   = randomBetween(120, 280);
+
+    setTimeout(() => {
+      g.style.transition = `opacity ${fadeMs}ms ease-out`;
+      g.style.opacity = 0;
+      setTimeout(() => { if (g.parentNode) g.parentNode.removeChild(g); }, fadeMs + 50);
+    }, holdMs);
+  }
+
+  /* ---- Ambient random bolts ---- */
+  function scheduleAmbient() {
+    const delay = randomBetween(1800, 5500);
+    setTimeout(() => {
+      const count = Math.random() < 0.25 ? 2 : 1; // occasional double-strike
+      fireBolt();
+      if (count === 2) setTimeout(fireBolt, randomBetween(60, 180));
+      scheduleAmbient();
+    }, delay);
+  }
+  scheduleAmbient();
+
+  /* ---- Scroll-triggered bolts ---- */
+  let lastScrollY = window.scrollY;
+  let scrollVelocity = 0;
+  let boltCooldown = false;
+
+  window.addEventListener('scroll', () => {
+    const current = window.scrollY;
+    scrollVelocity = Math.abs(current - lastScrollY);
+    lastScrollY = current;
+
+    if (scrollVelocity > 18 && !boltCooldown) {
+      const extra = Math.floor(scrollVelocity / 40); // more bolts on faster scroll
+      for (let i = 0; i <= extra; i++) {
+        setTimeout(fireBolt, i * 60);
+      }
+      boltCooldown = true;
+      setTimeout(() => { boltCooldown = false; }, 250);
+    }
+  }, { passive: true });
+
+})();
